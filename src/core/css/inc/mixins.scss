@@ -1,0 +1,7 @@
+/* Shared mixins. Bear in mind changes here impact *all* apps. */
+
+@mixin focus() {
+  border-color: $focus-outline-color;
+  box-shadow:0 0 5px 0 $focus-outline-color;
+  outline:none;
+}

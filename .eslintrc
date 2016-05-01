@@ -1,0 +1,23 @@
+{
+  "env": {
+    "mocha": true,
+  },
+  "extends": "airbnb",
+  "globals": {
+    "CLIENT": true,
+    "CLIENT_CONFIG": true,
+    "DEVELOPMENT": true,
+    "SERVER": true,
+    "assert": true,
+    "sinon": true,
+    "webpackIsomorphicTools": true
+  },
+  "parser": "babel-eslint",
+  "rules": {
+    "object-curly-spacing": 0,
+    "space-before-function-paren": [2, "never"],
+    "react/prefer-stateless-function": 0,
+    "react/jsx-indent-props": "off",
+    "react/jsx-closing-bracket-location": "off"
+  }
+}

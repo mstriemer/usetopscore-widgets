@@ -1,0 +1,209 @@
+{
+  "name": "mozilla-addons-frontend",
+  "version": "0.0.1",
+  "description": "Universal front-end projects to complement addons-server.",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "build": "better-npm-run build",
+    "build:disco": "better-npm-run build:disco",
+    "build:search": "better-npm-run build:search",
+    "clean": "rimraf './dist/*+(css|js|map|json)' './webpack-assets.json'",
+    "dev:disco": "better-npm-run dev:disco",
+    "dev:search": "better-npm-run dev:search",
+    "eslint": "npm run lint",
+    "lint": "eslint .",
+    "servertest": "npm run build && better-npm-run servertest",
+    "start:disco": "better-npm-run start:disco",
+    "start:search": "better-npm-run start:search",
+    "test": "better-npm-run test",
+    "unittest": "better-npm-run unittest",
+    "unittest:dev": "better-npm-run unittest:dev",
+    "version-check": "node bin/version-check.js",
+    "webpack-dev-server": "better-npm-run webpack-dev-server"
+  },
+  "betterScripts": {
+    "build": {
+      "command": "npm run clean && npm run version-check && webpack --verbose --display-error-details --progress --colors --config webpack.prod.config.babel.js",
+      "env": {
+        "NODE_PATH": "./:./src"
+      }
+    },
+    "build:disco": {
+      "command": "npm run build",
+      "env": {
+        "NODE_APP_INSTANCE": "disco"
+      }
+    },
+    "build:search": {
+      "command": "npm run build",
+      "env": {
+        "NODE_APP_INSTANCE": "search"
+      }
+    },
+    "dev:disco": {
+      "command": "better-npm-run start-dev",
+      "env": {
+        "NODE_APP_INSTANCE": "disco"
+      }
+    },
+    "dev:search": {
+      "command": "better-npm-run start-dev",
+      "env": {
+        "NODE_APP_INSTANCE": "search"
+      }
+    },
+    "start-dev": {
+      "command": "npm run clean && concurrently --kill-others 'npm run webpack-dev-server' 'node bin/server.js'",
+      "env": {
+        "ENABLE_PIPING": "true",
+        "NODE_ENV": "development",
+        "NODE_PATH": "./:./src"
+      }
+    },
+    "servertest": {
+      "command": "mocha --compilers js:babel-register tests/server/",
+      "env": {
+        "NODE_PATH": "./:./src",
+        "NODE_ENV": "production"
+      }
+    },
+    "start": {
+      "command": "npm run version-check && node bin/server.js",
+      "env": {
+        "NODE_PATH": "./:./src"
+      }
+    },
+    "start:search": {
+      "command": "better-npm-run start",
+      "env": {
+        "NODE_APP_INSTANCE": "search"
+      }
+    },
+    "start:disco": {
+      "command": "better-npm-run start",
+      "env": {
+        "NODE_APP_INSTANCE": "disco"
+      }
+    },
+    "test": {
+      "command": "npm run version-check && npm run unittest && npm run servertest && npm run lint",
+      "env": {
+        "NODE_PATH": "./:./src",
+        "NODE_ENV": "production"
+      }
+    },
+    "unittest": {
+      "command": "karma start --single-run",
+      "env": {
+        "NODE_PATH": "./:./src",
+        "NODE_ENV": "production"
+      }
+    },
+    "unittest:dev": {
+      "command": "karma start",
+      "env": {
+        "NODE_PATH": "./:./src",
+        "NODE_ENV": "production"
+      }
+    },
+    "webpack-dev-server": {
+      "command": "node bin/webpack-dev-server.js",
+      "env": {
+        "NODE_ENV": "development",
+        "NODE_PATH": "./:./src"
+      }
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mozillla/addons-frontend.git"
+  },
+  "author": "Mozilla Add-ons Team",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/mozillla/addons-frontend/issues"
+  },
+  "homepage": "https://github.com/mozillla/addons-frontend#readme",
+  "dependencies": {
+    "better-npm-run": "0.0.8",
+    "camelcase": "2.1.1",
+    "common-tags": "0.0.3",
+    "config": "1.20.1",
+    "express": "4.13.4",
+    "extract-text-webpack-plugin": "1.0.1",
+    "helmet": "1.3.0",
+    "isomorphic-fetch": "2.2.1",
+    "normalize.css": "4.1.1",
+    "normalizr": "2.0.1",
+    "piping": "0.3.0",
+    "react": "15.0.1",
+    "react-cookie": "0.4.5",
+    "react-redux": "4.4.5",
+    "react-router": "2.4.0",
+    "redux": "3.5.2",
+    "redux-async-connect": "1.0.0-rc4",
+    "redux-logger": "2.6.1",
+    "serialize-javascript": "1.2.0"
+  },
+  "devDependencies": {
+    "autoprefixer-loader": "3.2.0",
+    "babel-core": "6.7.7",
+    "babel-eslint": "6.0.4",
+    "babel-istanbul": "0.8.0",
+    "babel-istanbul-loader": "0.1.0",
+    "babel-loader": "6.2.4",
+    "babel-plugin-react-transform": "2.0.2",
+    "babel-plugin-transform-class-properties": "6.6.0",
+    "babel-plugin-transform-decorators-legacy": "1.3.4",
+    "babel-plugin-transform-object-rest-spread": "6.6.5",
+    "babel-polyfill": "6.7.4",
+    "babel-preset-es2015": "6.6.0",
+    "babel-preset-react": "6.5.0",
+    "babel-preset-stage-2": "6.5.0",
+    "babel-register": "6.7.2",
+    "chai": "3.5.0",
+    "chalk": "1.1.3",
+    "cheerio": "0.20.0",
+    "concurrently": "2.0.0",
+    "csp-parse": "0.0.2",
+    "css-loader": "0.23.1",
+    "eslint": "2.8.0",
+    "eslint-config-airbnb": "7.0.0",
+    "eslint-plugin-jsx-a11y": "0.6.2",
+    "eslint-plugin-react": "5.0.1",
+    "json-loader": "0.5.4",
+    "karma": "0.13.22",
+    "karma-chai": "0.1.0",
+    "karma-coverage": "0.5.5",
+    "karma-coveralls": "1.1.2",
+    "karma-firefox-launcher": "0.1.7",
+    "karma-mocha": "0.2.2",
+    "karma-mocha-reporter": "2.0.2",
+    "karma-sinon": "1.0.4",
+    "karma-sourcemap-loader": "0.3.7",
+    "karma-webpack": "1.7.0",
+    "mocha": "2.4.5",
+    "node-sass": "3.5.3",
+    "react-addons-test-utils": "15.0.1",
+    "react-dom": "15.0.1",
+    "react-hot-loader": "1.3.0",
+    "react-transform-hmr": "1.0.4",
+    "redux-devtools": "3.2.0",
+    "require-uncached": "1.0.2",
+    "rimraf": "2.5.2",
+    "sass-loader": "3.1.2",
+    "semver": "5.1.0",
+    "shelljs": "0.7.0",
+    "sinon": "1.17.3",
+    "sri-stats-webpack-plugin": "0.7.2",
+    "style-loader": "0.13.1",
+    "supertest": "1.2.0",
+    "supertest-as-promised": "3.0.0",
+    "webpack": "1.13.0",
+    "webpack-dev-middleware": "1.6.1",
+    "webpack-dev-server": "1.14.1",
+    "webpack-hot-middleware": "2.10.0",
+    "webpack-isomorphic-tools": "2.2.48"
+  }
+}
