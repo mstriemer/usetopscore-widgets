@@ -77,9 +77,13 @@ export default function(routes, createStore) {
 
       const store = createStore();
 
-      const token = cookie.load(config.get('cookieName'));
-      if (token) {
-        store.dispatch(setJWT(token));
+      try {
+        const token = cookie.load(config.get('cookieName'));
+        if (token) {
+          store.dispatch(setJWT(token));
+        }
+      } catch (e) {
+        console.log(e); // eslint-disable-line no-console
       }
 
       return loadOnServer({...renderProps, store}).then(() => {

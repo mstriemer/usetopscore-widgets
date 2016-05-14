@@ -8,9 +8,19 @@ const API_BASE = config.get('apiBase');
 
 const game = new Schema('games');
 
+function formatParam(key, value) {
+  return `${key}=${value}`;
+}
+
 function makeQueryString(opts) {
   // FIXME: This should use a real query string generator.
-  return Object.keys(opts).map((k) => `${k}=${opts[k]}`).join('&');
+  return Object.keys(opts).map((key) => {
+    const value = opts[key];
+    if (Array.isArray(value)) {
+      return value.map((val) => formatParam(key, val)).join('&');
+    }
+    return formatParam(key, value);
+  }).join('&');
 }
 
 function callApi({endpoint, schema, params, auth = false, state = {}, method = 'get', body,
@@ -32,7 +42,7 @@ function callApi({endpoint, schema, params, auth = false, state = {}, method = '
       options.headers.authorization = `Bearer ${state.token}`;
     }
   }
-  return fetch(`${API_BASE}/${endpoint}/?${queryString}`, options)
+  return fetch(`${API_BASE}/${endpoint}?${queryString}`, options)
     .then((response) => {
       if (response.ok) {
         return response.json();
@@ -47,9 +57,9 @@ export function upcomingGames() {
     endpoint: 'games',
     params: {
       order_by: 'start_date%20asc',
-      'team_id[]': 121562,
-      'team_id[]': 121226,
+      'team_id[]': [121562, 121226],
       min_date: '2015-10-26',
     },
+    schema: {result: arrayOf(game)},
   });
 }
