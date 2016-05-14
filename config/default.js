@@ -45,6 +45,7 @@ module.exports = {
       imgSrc: defer((cfg) => [
         "'self'",
         cfg.amoCDN,
+        'd36m266ykvepgv.cloudfront.net',
       ]),
       scriptSrc: ["'self'"],
       styleSrc: ["'self'"],
