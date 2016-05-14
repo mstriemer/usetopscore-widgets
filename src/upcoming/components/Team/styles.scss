@@ -1,0 +1,15 @@
+.team {
+  align-items: center;
+  display: flex;
+  width: 300px;
+}
+
+.team--name {
+  padding-left: 5px;
+}
+
+@media (max-width: 500px) {
+  .team {
+    width: 100%;
+  }
+}

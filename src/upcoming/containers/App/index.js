@@ -12,7 +12,6 @@ export default class App extends React.Component {
     const { children } = this.props;
     return (
       <div className="upcoming-games">
-        <h1>Upcoming Games</h1>
         {children}
       </div>
     );

@@ -4,10 +4,12 @@ import createLogger from 'redux-logger';
 
 import entities from 'core/reducers/entities';
 import upcomingGames from './reducers/upcomingGames';
+import teams from './reducers/teams';
+import me from './reducers/me';
 
 export default function createStore(initialState = {}) {
   return _createStore(
-    combineReducers({entities, reduxAsyncConnect, upcomingGames}),
+    combineReducers({entities, me, reduxAsyncConnect, teams, upcomingGames}),
     initialState,
     applyMiddleware(createLogger()),
   );
