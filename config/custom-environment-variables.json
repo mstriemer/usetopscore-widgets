@@ -1,3 +1,4 @@
 {
+  "serverHost": "SERVER_HOST",
   "serverPort": "PORT"
 }
