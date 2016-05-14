@@ -64,7 +64,7 @@ export function upcomingGames({ user }) {
   return callApi({
     endpoint: 'games',
     params: {
-      order_by: 'start_date%20asc',
+      order_by: 'start_date%20asc,start_time%20asc',
       'fields[]': 'Field',
       person_id: user,
       min_date: minDate,

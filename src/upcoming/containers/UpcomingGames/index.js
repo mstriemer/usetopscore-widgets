@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 import { loadEntities } from 'core/actions';
 import { loadMe, upcomingGames } from 'core/api';
@@ -7,6 +8,12 @@ import { setMe, setUpcomingGames } from 'upcoming/actions';
 import Team from 'upcoming/components/Team';
 
 import './styles.scss';
+
+function formatTime(game) {
+  return moment(`${game.start_date} ${game.start_time}`).calendar(null, {
+    sameElse: 'dddd, MMM Do \\at h:mm A',
+  });
+}
 
 function getGames(state) {
   return state.upcomingGames.map((id) => state.entities.games[id]);
@@ -55,7 +62,7 @@ class UpcomingGames extends React.Component {
                 {' '}
                 #{game.field_number}
                 </div>
-                <div className="game--time">{game.start_date} {game.start_time}</div>
+                <div className="game--time">{formatTime(game)}</div>
               </div>
               <div className="game--teams">
                 <Team {...game.AwayTeam} />
