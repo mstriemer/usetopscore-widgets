@@ -7,8 +7,7 @@ const defer = require('config/defer').deferConfig;
 
 const appName = process.env.NODE_APP_INSTANCE || null;
 const validAppNames = [
-  'disco',
-  'search',
+  'upcoming',
 ];
 
 // Throw if the appName supplied is not valid.
@@ -20,10 +19,6 @@ module.exports = {
   appName,
   basePath: path.resolve(__dirname, '../'),
 
-  // 2592000 is 30 days in seconds.
-  cookieMaxAge: 2592000,
-  cookieName: 'jwt_api_auth_token',
-
   // The canonical list of enabled apps.
   validAppNames,
 
@@ -31,22 +26,15 @@ module.exports = {
   serverHost: '127.0.0.1',
   serverPort: 4000,
 
-  // The CDN host for AMO.
-  amoCDN: 'https://addons.cdn.mozilla.net',
-
-  apiHost: 'https://addons.mozilla.org',
-  apiPath: '/api/v3',
+  apiHost: 'https://mods.usetopscore.com',
+  apiPath: '/api',
   apiBase: defer((cfg) => cfg.apiHost + cfg.apiPath),
-  startLoginUrl: defer((cfg) => `${cfg.apiBase}/internal/accounts/login/start/`),
 
   // The keys listed here will be exposed on the client.
   // Since by definition client-side code is public these config keys
   // must not contain sensitive data.
   clientConfigKeys: [
     'apiBase',
-    'cookieName',
-    'cookieMaxAge',
-    'startLoginUrl',
   ],
 
   // Content security policy.

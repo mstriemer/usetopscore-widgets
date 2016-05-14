@@ -6,7 +6,7 @@ import 'isomorphic-fetch';
 
 const API_BASE = config.get('apiBase');
 
-const addon = new Schema('addons', {idAttribute: 'slug'});
+const game = new Schema('games');
 
 function makeQueryString(opts) {
   // FIXME: This should use a real query string generator.
@@ -42,33 +42,14 @@ function callApi({endpoint, schema, params, auth = false, state = {}, method = '
     .then((response) => (schema ? normalize(response, schema) : response));
 }
 
-export function search({ api, page, query }) {
-  // TODO: Get the language from the server.
+export function upcomingGames() {
   return callApi({
-    endpoint: 'addons/search',
-    schema: {results: arrayOf(addon)},
-    params: {q: query, lang: 'en-US', page},
-    state: api,
-  });
-}
-
-export function fetchAddon({ api, slug }) {
-  return callApi({
-    endpoint: `addons/addon/${slug}`,
-    schema: addon,
-    params: {lang: 'en-US'},
-    auth: true,
-    state: api,
-  });
-}
-
-export function login({ api, code, state }) {
-  return callApi({
-    endpoint: 'internal/accounts/login',
-    method: 'post',
-    body: {code, state},
-    params: {lang: 'en-US'},
-    state: api,
-    credentials: true,
+    endpoint: 'games',
+    params: {
+      order_by: 'start_date%20asc',
+      'team_id[]': 121562,
+      'team_id[]': 121226,
+      min_date: '2015-10-26',
+    },
   });
 }

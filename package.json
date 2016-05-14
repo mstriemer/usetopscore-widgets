@@ -6,16 +6,13 @@
   "private": true,
   "scripts": {
     "build": "better-npm-run build",
-    "build:disco": "better-npm-run build:disco",
-    "build:search": "better-npm-run build:search",
+    "build:upcoming": "better-npm-run build:upcoming",
     "clean": "rimraf './dist/*+(css|js|map|json)' './webpack-assets.json'",
-    "dev:disco": "better-npm-run dev:disco",
-    "dev:search": "better-npm-run dev:search",
+    "dev:upcoming": "better-npm-run dev:upcoming",
     "eslint": "npm run lint",
     "lint": "eslint .",
     "servertest": "npm run build && better-npm-run servertest",
-    "start:disco": "better-npm-run start:disco",
-    "start:search": "better-npm-run start:search",
+    "start:upcoming": "better-npm-run start:upcoming",
     "test": "better-npm-run test",
     "unittest": "better-npm-run unittest",
     "unittest:dev": "better-npm-run unittest:dev",
@@ -29,28 +26,16 @@
         "NODE_PATH": "./:./src"
       }
     },
-    "build:disco": {
+    "build:upcoming": {
       "command": "npm run build",
       "env": {
-        "NODE_APP_INSTANCE": "disco"
+        "NODE_APP_INSTANCE": "upcoming"
       }
     },
-    "build:search": {
-      "command": "npm run build",
-      "env": {
-        "NODE_APP_INSTANCE": "search"
-      }
-    },
-    "dev:disco": {
+    "dev:upcoming": {
       "command": "better-npm-run start-dev",
       "env": {
-        "NODE_APP_INSTANCE": "disco"
-      }
-    },
-    "dev:search": {
-      "command": "better-npm-run start-dev",
-      "env": {
-        "NODE_APP_INSTANCE": "search"
+        "NODE_APP_INSTANCE": "upcoming"
       }
     },
     "start-dev": {
@@ -74,16 +59,10 @@
         "NODE_PATH": "./:./src"
       }
     },
-    "start:search": {
+    "start:upcoming": {
       "command": "better-npm-run start",
       "env": {
-        "NODE_APP_INSTANCE": "search"
-      }
-    },
-    "start:disco": {
-      "command": "better-npm-run start",
-      "env": {
-        "NODE_APP_INSTANCE": "disco"
+        "NODE_APP_INSTANCE": "upcoming"
       }
     },
     "test": {
@@ -101,7 +80,7 @@
       }
     },
     "unittest:dev": {
-      "command": "karma start",
+      "command": "karma start -vv",
       "env": {
         "NODE_PATH": "./:./src",
         "NODE_ENV": "production"
