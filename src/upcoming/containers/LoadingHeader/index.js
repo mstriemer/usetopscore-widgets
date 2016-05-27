@@ -20,7 +20,7 @@ class LoadingHeader extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    loading: state.api.requests > 0,
+    loading: state.api.loading,
   };
 }
 

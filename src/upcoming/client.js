@@ -5,5 +5,5 @@ import createStore from './store';
 makeClient(routes, createStore);
 
 if (navigator.serviceWorker) {
-  navigator.serviceWorker.register('serviceworker.js');
+  navigator.serviceWorker.register('/serviceworker.js');
 }

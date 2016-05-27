@@ -3,9 +3,9 @@ export default function api(state = {requests: 0}, action) {
     case 'SET_JWT':
       return {...state, token: action.payload.token};
     case 'API/LOADING':
-      return {...state, requests: state.requests + 1};
+      return {...state, loading: true};
     case 'API/DONE':
-      return {...state, requests: state.requests - 1};
+      return {...state, loading: false};
     default:
       return state;
   }
