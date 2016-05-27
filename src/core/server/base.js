@@ -139,7 +139,7 @@ export default function(routes, createStore) {
           <html>
             <head>
               <meta charset="utf-8">
-              <title>Isomorphic Redux Demo</title>
+              <title>MODS Games</title>
               <meta name="viewport" content="width=device-width, initial-scale=1" />
               ${styles}
             </head>
