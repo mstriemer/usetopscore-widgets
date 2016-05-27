@@ -7,8 +7,8 @@ self.addEventListener('install', (event) => {
   event.waitUntil(caches.open('static-v1')
     .then((cache) => cache.addAll([
       '/shell',
-      '/upcoming-a4dba1b075a0753c95f0.css',
-      '/upcoming-a4dba1b075a0753c95f0.js',
+      '/upcoming-147fcffdb2758b3cdd42.css',
+      '/upcoming-147fcffdb2758b3cdd42.js',
     ]))
   );
 });
