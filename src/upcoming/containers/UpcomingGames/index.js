@@ -38,21 +38,24 @@ class UpcomingGames extends React.Component {
   }
 
   componentDidMount() {
-    const { dispatch, games, me } = this.props;
-    if (games.length === 0) {
-      getUser(me, dispatch)
-        .then((user) => upcomingGames({user}))
-        .then(({ entities, result }) => {
-          dispatch(loadEntities(entities));
-          dispatch(setUpcomingGames(result.result));
-        });
-    }
+    const { dispatch, me } = this.props;
+    dispatch({type: 'API/LOADING'});
+    getUser(me, dispatch)
+      .then((user) => upcomingGames({user}))
+      .then(({ entities, result }) => {
+        dispatch(loadEntities(entities));
+        dispatch(setUpcomingGames(result.result));
+      })
+      .then(() => dispatch({type: 'API/DONE'}));
   }
 
   render() {
     const { games = [] } = this.props;
+    if (games.length === 0) {
+      return <p>No games found...</p>;
+    }
     return (
-        <ul>
+      <ul>
         {games.map((game, i) => (
           <li key={game.id} className={i % 2 !== 0 ? 'odd' : ''}>
             <div className="game">

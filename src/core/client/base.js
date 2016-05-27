@@ -7,9 +7,13 @@ import { ReduxAsyncConnect } from 'redux-async-connect';
 
 export default function makeClient(routes, createStore) {
   const initialStateContainer = document.getElementById('redux-store-state');
+  const localStorageState = localStorage.getItem('redux-store-state');
   let initialState;
 
-  if (initialStateContainer) {
+  if (localStorageState) {
+    initialState = JSON.parse(localStorageState);
+  }
+  if (!initialState && initialStateContainer) {
     try {
       initialState = JSON.parse(initialStateContainer.textContent);
     } catch (error) {
@@ -17,6 +21,9 @@ export default function makeClient(routes, createStore) {
     }
   }
   const store = createStore(initialState);
+
+  store.subscribe(
+    () => localStorage.setItem('redux-store-state', JSON.stringify(store.getState())));
 
   function reduxAsyncConnectRender(props) {
     return <ReduxAsyncConnect {...props} />;

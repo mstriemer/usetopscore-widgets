@@ -62,6 +62,10 @@ export default function(routes, createStore) {
     app.get('/', (req, res) => res.redirect(302, '/search'));
   }
 
+  app.get(
+    '/serviceworker.js',
+    (req, res) => res.sendFile(path.join(config.get('basePath'), 'src/upcoming/serviceworker.js')));
+
   app.use((req, res) => {
     match({ routes, location: req.url }, (err, redirectLocation, renderProps) => {
       cookie.plugToRequest(req, res);
