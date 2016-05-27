@@ -41,7 +41,11 @@ module.exports = {
   CSP: {
     directives: {
       defaultSrc: ["'self'"],
-      connectSrc: defer((cfg) => ["'self'", cfg.apiHost]),
+      connectSrc: defer((cfg) => [
+        "'self'", cfg.apiHost,
+        'https://cdn.usetopscore.com',
+        'https://d36m266ykvepgv.cloudfront.net',
+      ]),
       imgSrc: defer((cfg) => [
         "'self'",
         cfg.amoCDN,
