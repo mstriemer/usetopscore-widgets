@@ -1,4 +1,3 @@
-const assetHash = '220d53b38b61540823e4';
 const cdnOrigins = [
   'https://cdn.usetopscore.com',
   'https://d36m266ykvepgv.cloudfront.net',
@@ -8,8 +7,8 @@ self.addEventListener('install', (event) => {
   event.waitUntil(caches.open('static-v1')
     .then((cache) => cache.addAll([
       '/shell',
-      `/upcoming-${assetHash}.css`,
-      `/upcoming-${assetHash}.js`,
+      '/upcoming-ASSET_HASH.css',
+      '/upcoming-ASSET_HASH.js',
     ]))
   );
 });

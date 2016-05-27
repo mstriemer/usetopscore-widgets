@@ -62,9 +62,21 @@ export default function(routes, createStore) {
     app.get('/', (req, res) => res.redirect(302, '/search'));
   }
 
-  app.get(
-    '/serviceworker.js',
-    (req, res) => res.sendFile(path.join(config.get('basePath'), 'src/upcoming/serviceworker.js')));
+  app.get('/serviceworker.js', (req, res) => {
+    const inputPath = path.join(config.get('basePath'), 'src/upcoming/serviceworker.js');
+    const outputPath = path.join(config.get('basePath'), 'dist/serviceworker.js');
+    try {
+      fs.statSync(outputPath);
+    } catch (e) {
+      const assetHashes = require('../../../webpack-assets.json');
+      const assetHash = assetHashes.javascript.upcoming.split('-')[1].split('.')[0];
+      const newFile = fs.readFileSync(inputPath)
+        .toString()
+        .replace(new RegExp('ASSET_HASH', 'g'), assetHash);
+      fs.writeFileSync(outputPath, newFile);
+    }
+    res.sendFile(outputPath);
+  });
 
   app.use((req, res) => {
     match({ routes, location: req.url }, (err, redirectLocation, renderProps) => {
