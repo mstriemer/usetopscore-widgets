@@ -42,9 +42,6 @@ export default function(routes, createStore) {
   // Sets x-xss-protection:"1; mode=block"
   app.use(helmet.xssFilter());
 
-  // CSP configuration.
-  app.use(helmet.csp(config.get('CSP')));
-
   if (env === 'development') {
     console.log('Running in Development Mode'); // eslint-disable-line no-console
 
