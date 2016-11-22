@@ -5,7 +5,7 @@ import './styles.scss';
 export default class Team extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
-    images: PropTypes.array.isRequired,
+    images: PropTypes.object.isRequired,
   }
 
   render() {

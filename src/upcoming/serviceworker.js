@@ -1,14 +1,26 @@
+// ASSET_HASH gets set by the server when being served.
+const assetHash = ASSET_HASH;
+
+console.log('in serviceworker');
+
 const cdnOrigins = [
   'https://cdn.usetopscore.com',
   'https://d36m266ykvepgv.cloudfront.net',
 ];
 
+const staticCache = `static-${assetHash}`;
+const iconCache = 'team-icons';
+const validCaches = new Set([
+  staticCache,
+  iconCache,
+]);
+
 self.addEventListener('install', (event) => {
-  event.waitUntil(caches.open('static-v1')
+  event.waitUntil(caches.open(staticCache)
     .then((cache) => cache.addAll([
       '/shell',
-      '/upcoming-ASSET_HASH.css',
-      '/upcoming-ASSET_HASH.js',
+      `/upcoming-${assetHash}.css`,
+      `/upcoming-${assetHash}.js`,
     ]))
   );
 });
@@ -19,7 +31,7 @@ function handleTeamIconRequest(event) {
   event.waitUntil(
     networkFetch.then((response) => {
       const responseClone = response.clone();
-      caches.open('team-icons')
+      caches.open(iconCache)
         .then((cache) => cache.put(event.request, responseClone));
     })
   );
@@ -46,3 +58,14 @@ self.addEventListener('fetch', (event) => {
       .then((response) => response || fetch(event.request))
   );
 });
+
+// self.addEventListener('activate', event => {
+//   event.waitUntil(
+//     caches.keys()
+//       .then((cacheNames) => (
+//         Promise.all(
+//           cacheNames
+//             .filter((cacheName) => !validCaches.has(cacheName))
+//             .map((cacheName) => caches.delete(cacheName)))))
+//   );
+// });

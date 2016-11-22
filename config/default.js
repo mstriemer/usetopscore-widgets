@@ -15,6 +15,8 @@ if (appName && validAppNames.indexOf(appName) === -1) {
   throw new Error(`App ${appName} is not enabled`);
 }
 
+const apiHost = 'https://mods.usetopscore.com';
+
 module.exports = {
   appName,
   basePath: path.resolve(__dirname, '../'),
@@ -26,7 +28,7 @@ module.exports = {
   serverHost: '127.0.0.1',
   serverPort: 4000,
 
-  apiHost: 'https://mods.usetopscore.com',
+  apiHost,
   apiPath: '/api',
   apiBase: defer((cfg) => cfg.apiHost + cfg.apiPath),
 
@@ -41,17 +43,17 @@ module.exports = {
   CSP: {
     directives: {
       defaultSrc: ["'self'"],
-      connectSrc: defer((cfg) => [
-        "'self'", cfg.apiHost,
-        'https://cdn.usetopscore.com',
-        'https://d36m266ykvepgv.cloudfront.net',
-      ]),
-      imgSrc: defer((cfg) => [
+      connectSrc: [
         "'self'",
-        cfg.amoCDN,
+        apiHost,
         'https://cdn.usetopscore.com',
         'https://d36m266ykvepgv.cloudfront.net',
-      ]),
+      ],
+      imgSrc: [
+        "'self'",
+        'https://cdn.usetopscore.com',
+        'https://d36m266ykvepgv.cloudfront.net',
+      ],
       scriptSrc: ["'self'"],
       styleSrc: ["'self'"],
       reportUri: '/__cspreport__',

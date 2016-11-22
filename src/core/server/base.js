@@ -59,6 +59,11 @@ export default function(routes, createStore) {
     app.get('/', (req, res) => res.redirect(302, '/search'));
   }
 
+  app.use('/static', Express.static('src/upcoming/static'));
+  app.get('/manifest.json', (req, res) => (
+    res.sendFile(path.join(config.get('basePath'), 'src/upcoming/manifest.json'))
+  ));
+
   app.get('/serviceworker.js', (req, res) => {
     const inputPath = path.join(config.get('basePath'), 'src/upcoming/serviceworker.js');
     const outputPath = path.join(config.get('basePath'), 'dist/serviceworker.js');
@@ -69,7 +74,7 @@ export default function(routes, createStore) {
       const assetHash = assetHashes.javascript.upcoming.split('-')[1].split('.')[0];
       const newFile = fs.readFileSync(inputPath)
         .toString()
-        .replace(new RegExp('ASSET_HASH', 'g'), assetHash);
+        .replace(new RegExp('ASSET_HASH', 'g'), JSON.stringify(assetHash));
       fs.writeFileSync(outputPath, newFile);
     }
     res.sendFile(outputPath);
@@ -142,6 +147,7 @@ export default function(routes, createStore) {
               <title>MODS Games</title>
               <meta name="viewport" content="width=device-width, initial-scale=1" />
               ${styles}
+              <link rel="manifest" href="/manifest.json" />
             </head>
             <body>
               <div id="react-view">${componentHTML}</div>
